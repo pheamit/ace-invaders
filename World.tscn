@@ -10,6 +10,7 @@
 script = ExtResource( 1 )
 
 [node name="Background" type="CanvasLayer" parent="."]
+layer = -1
 
 [node name="Tiles" type="CanvasLayer" parent="Background"]
 

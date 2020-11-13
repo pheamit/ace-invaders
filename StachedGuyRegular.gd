@@ -1,20 +1,26 @@
 extends KinematicBody2D
 
-var speed = 200
+var speed = 100
 var gravity = 800
 const JUMP_FORCE = 300
 var velocity = Vector2()
-onready var castle_node = get_node("/root/Castle.tscn")
+
+onready var castle_node = get_parent().get_parent().get_node("World/Background/Castle")
+onready var destination = castle_node.position.x
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity.x = 0
+	var jump_roll = rand_range(0, 1)
 	
-	if Input.is_action_pressed("move_right"):
+	if position.x < destination - 20:
 		velocity.x += speed
-	elif Input.is_action_pressed("move_left"):
+	elif position.x > destination + 20:
 		velocity.x -= speed
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	else:
+		queue_free()
+		
+	if jump_roll > 0.96 and is_on_floor():
 		velocity.y -= JUMP_FORCE
-	
+#		
 	velocity = move_and_slide(velocity, Vector2.UP)
