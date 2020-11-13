@@ -8,6 +8,9 @@ var velocity = Vector2()
 onready var castle_node = get_parent().get_parent().get_node("World/Background/Castle")
 onready var destination = castle_node.position.x
 
+func _ready():
+	add_to_group("STACHE_GUYS")
+
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity.x = 0
